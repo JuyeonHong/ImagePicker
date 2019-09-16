@@ -34,8 +34,15 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <navigationItem key="navigationItem" title="ImagePicker" id="LlJ-lh-RsP">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="EHU-yf-p5u"/>
+                        <barButtonItem key="rightBarButtonItem" width="30" systemItem="add" id="EHU-yf-p5u">
+                            <connections>
+                                <action selector="addImage:" destination="BYZ-38-t0r" id="4Im-gv-gMw"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="imageView" destination="OQm-e8-07w" id="uun-VO-Ukk"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
