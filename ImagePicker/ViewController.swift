@@ -19,13 +19,23 @@ class ViewController: UIViewController {
     }
     
     func openAlbum(){
-        imagePicker.sourceType = .photoLibrary
-        self.present(imagePicker, animated: true, completion: nil)
+        if UIImagePickerController.isSourceTypeAvailable(.photoLibrary){
+            imagePicker.sourceType = .photoLibrary
+            self.present(imagePicker, animated: true, completion: nil)
+        }
+        else{
+            showToast(duration: 2, message: "Photo Library is not available")
+        }
     }
     
     func openCamera(){
-        imagePicker.sourceType = .camera
-        self.present(imagePicker, animated: true, completion: nil)
+        if UIImagePickerController.isSourceTypeAvailable(.camera) {
+            imagePicker.sourceType = .camera
+            self.present(imagePicker, animated: true, completion: nil)
+        }
+        else {
+            showToast(duration: 2, message: "Camera is not available")
+        }
     }
     
     @IBAction func addImage(_ sender: UIBarButtonItem) {
@@ -42,6 +52,28 @@ class ViewController: UIViewController {
         alert.addAction(UIAlertAction(title: "취소", style: .cancel, handler: nil))
         
         self.present(alert, animated: true, completion: nil)
+    }
+    
+    func showToast(duration: CGFloat, message: String){
+        let toastLabel = UILabel()
+        view.addSubview(toastLabel)
+        toastLabel.frame = CGRect(x: (self.view.frame.width - 275)/2, y: (self.view.frame.height - 50)/2, width: 275, height: 50)
+        
+        toastLabel.backgroundColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+        toastLabel.textColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+        toastLabel.text = message
+        toastLabel.textAlignment = .center
+        
+        toastLabel.layer.cornerRadius = 8
+        toastLabel.clipsToBounds = true
+        toastLabel.layer.borderColor = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)
+        toastLabel.layer.borderWidth = 1
+        
+        UIView.animate(withDuration: TimeInterval(duration),
+                       animations: { toastLabel.alpha = 0.0 },
+                       completion: { (_) in
+                        self.dismiss(animated: true, completion: nil)})
+        
     }
 
 }
